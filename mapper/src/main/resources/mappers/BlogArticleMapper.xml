@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chenxianping.blog.dao.BlogArticleMapper">
+  <resultMap id="BaseResultMap" type="com.chenxianping.blog.entity.BlogArticle">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="article_id" jdbcType="INTEGER" property="articleId" />
+    <result column="article_title" jdbcType="VARCHAR" property="articleTitle" />
+    <result column="article_cover_image" jdbcType="VARCHAR" property="articleCoverImage" />
+    <result column="article_sub_url" jdbcType="VARCHAR" property="articleSubUrl" />
+    <result column="article_status" jdbcType="TINYINT" property="articleStatus" />
+    <result column="article_page_view" jdbcType="INTEGER" property="articlePageView" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="category_id" jdbcType="INTEGER" property="categoryId" />
+    <result column="tag_ids" jdbcType="VARCHAR" property="tagIds" />
+    <result column="is_original" jdbcType="TINYINT" property="isOriginal" />
+    <result column="is_enable_comment" jdbcType="TINYINT" property="isEnableComment" />
+    <result column="article_comment_amount" jdbcType="INTEGER" property="articleCommentAmount" />
+    <result column="is_deleted" jdbcType="TINYINT" property="isDeleted" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="article_content" jdbcType="LONGVARCHAR" property="articleContent" />
+  </resultMap>
+</mapper>

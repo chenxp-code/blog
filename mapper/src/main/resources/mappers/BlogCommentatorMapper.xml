@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chenxianping.blog.dao.BlogCommentatorMapper">
+  <resultMap id="BaseResultMap" type="com.chenxianping.blog.entity.BlogCommentator">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="commentator_id" jdbcType="INTEGER" property="commentatorId" />
+    <result column="commentator_name" jdbcType="VARCHAR" property="commentatorName" />
+    <result column="commentator_email" jdbcType="VARCHAR" property="commentatorEmail" />
+    <result column="commentator_avatar" jdbcType="VARCHAR" property="commentatorAvatar" />
+    <result column="commentator_ip" jdbcType="VARCHAR" property="commentatorIp" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+</mapper>

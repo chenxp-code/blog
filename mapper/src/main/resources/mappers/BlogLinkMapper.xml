@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chenxianping.blog.dao.BlogLinkMapper">
+  <resultMap id="BaseResultMap" type="com.chenxianping.blog.entity.BlogLink">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="link_id" jdbcType="INTEGER" property="linkId" />
+    <result column="link_name" jdbcType="VARCHAR" property="linkName" />
+    <result column="link_url" jdbcType="VARCHAR" property="linkUrl" />
+    <result column="link_description" jdbcType="VARCHAR" property="linkDescription" />
+    <result column="link_icon" jdbcType="VARCHAR" property="linkIcon" />
+    <result column="link_sort" jdbcType="INTEGER" property="linkSort" />
+    <result column="link_status" jdbcType="TINYINT" property="linkStatus" />
+    <result column="link_source" jdbcType="TINYINT" property="linkSource" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+</mapper>

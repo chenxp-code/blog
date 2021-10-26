@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chenxianping.blog.dao.BlogCategoryMapper">
+  <resultMap id="BaseResultMap" type="com.chenxianping.blog.entity.BlogCategory">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="category_id" jdbcType="INTEGER" property="categoryId" />
+    <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
+    <result column="category_icon" jdbcType="VARCHAR" property="categoryIcon" />
+    <result column="category_amount" jdbcType="INTEGER" property="categoryAmount" />
+    <result column="category_column" jdbcType="TINYINT" property="categoryColumn" />
+    <result column="category_sort" jdbcType="INTEGER" property="categorySort" />
+    <result column="is_deleted" jdbcType="TINYINT" property="isDeleted" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+</mapper>

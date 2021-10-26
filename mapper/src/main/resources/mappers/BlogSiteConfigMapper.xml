@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chenxianping.blog.dao.BlogSiteConfigMapper">
+  <resultMap id="BaseResultMap" type="com.chenxianping.blog.entity.BlogSiteConfig">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="config_name" jdbcType="VARCHAR" property="configName" />
+    <result column="config_value" jdbcType="VARCHAR" property="configValue" />
+    <result column="config_explain" jdbcType="VARCHAR" property="configExplain" />
+    <result column="config_sort" jdbcType="INTEGER" property="configSort" />
+    <result column="is_deleted" jdbcType="TINYINT" property="isDeleted" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+</mapper>
