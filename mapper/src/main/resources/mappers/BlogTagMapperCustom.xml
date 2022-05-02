@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chenxianping.blog.dao.BlogTagMapperCustom">
+  <resultMap id="BaseResultMap" type="com.chenxianping.blog.entity.BlogTag">
+    <id column="tag_id" jdbcType="INTEGER" property="tagId" />
+    <result column="tag_name" jdbcType="VARCHAR" property="tagName" />
+    <result column="tag_amount" jdbcType="INTEGER" property="tagAmount" />
+    <result column="tag_sort" jdbcType="INTEGER" property="tagSort" />
+    <result column="is_deleted" jdbcType="TINYINT" property="deleted" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+  <select id="selectAllForPage" parameterType="int" resultMap="BaseResultMap">
+    SELECT tag_id, tag_name, tag_amount, tag_sort, is_deleted, create_time, update_time
+    FROM blog_tag
+    ORDER BY tag_sort DESC
+    LIMIT #{offset}, #{pageSize};
+  </select>
+</mapper>

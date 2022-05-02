@@ -14,10 +14,11 @@
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="category_id" jdbcType="INTEGER" property="categoryId" />
     <result column="tag_ids" jdbcType="VARCHAR" property="tagIds" />
-    <result column="is_original" jdbcType="TINYINT" property="isOriginal" />
-    <result column="is_enable_comment" jdbcType="TINYINT" property="isEnableComment" />
+    <result column="is_original" jdbcType="TINYINT" property="original" />
+    <result column="is_enable_comment" jdbcType="TINYINT" property="enableComment" />
     <result column="article_comment_amount" jdbcType="INTEGER" property="articleCommentAmount" />
-    <result column="is_deleted" jdbcType="TINYINT" property="isDeleted" />
+    <result column="is_top" jdbcType="TINYINT" property="top" />
+    <result column="is_deleted" jdbcType="TINYINT" property="deleted" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="article_content" jdbcType="LONGVARCHAR" property="articleContent" />

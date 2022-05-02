@@ -6,8 +6,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 
 @RestController
 @CrossOrigin
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @Api(value = "提供用户相关的操作接口",tags = "用户管理")
 public class UserController {
 
-    @Autowired
+    @Resource
     private UserService userService;
 
     @ApiOperation("添加管理员接口")
@@ -24,7 +25,7 @@ public class UserController {
             @ApiImplicitParam(dataType = "string",name = "userPassword", value = "管理员密码",required = true),
             @ApiImplicitParam(dataType = "byte",name = "userType", value = "管理员类型",required = true)
     })
-    @PostMapping("/addAdmin")
+    @PostMapping("/saveAdmin")
     public ResultVO addAdmin(String userName,String userPassword,Byte userType){
         ResultVO resultVO = userService.addAdmin(userName, userPassword,userType);
         return resultVO;

@@ -9,20 +9,28 @@ import com.chenxianping.blog.vo.ResultVO;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
+import javax.annotation.Resource;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
+    @Resource
     private BlogAdminMapper blogAdminMapper;
 
+    /**
+     * 添加管理员
+     * @param userName
+     * @param userPassword
+     * @param userType
+     * @return
+     */
     @Override
     public ResultVO addAdmin(String userName, String userPassword,Byte userType) {
         //1.先判断账号是否存在
@@ -57,6 +65,12 @@ public class UserServiceImpl implements UserService {
         return new ResultVO(ResStatus.NO,"添加失败：用户名已存在",null);
     }
 
+    /**
+     * 管理员登录验证
+     * @param userName
+     * @param userPassword
+     * @return
+     */
     @Override
     public ResultVO loginAdmin(String userName, String userPassword) {
         //1.先判断账号是否存在
@@ -84,13 +98,22 @@ public class UserServiceImpl implements UserService {
                     .setExpiration(new Date(System.currentTimeMillis() + 24*60*60*1000)) //设置token过期时间
                     .signWith(SignatureAlgorithm.HS256, "firstBlog")     //设置加密方式和加密密码
                     .compact();
-
-            return new ResultVO(ResStatus.OK,token,admins.get(0));
+            Map<String,Object> datas = new HashMap<String,Object>();
+            datas.put("token",token);
+            datas.put("admin",admins.get(0));
+            return new ResultVO(ResStatus.OK,"登录成功",datas);
         }else {
             return new ResultVO(ResStatus.NO,"登陆失败：密码错误",null);
         }
     }
 
+    /**
+     * 修改管理员密码
+     * @param id
+     * @param userPassword
+     * @param newPassword
+     * @return
+     */
     @Override
     public ResultVO updatePassword(Integer id, String userPassword, String newPassword) {
         BlogAdmin admin = blogAdminMapper.selectByPrimaryKey(id);

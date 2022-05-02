@@ -64,19 +64,25 @@ public class BlogArticle {
      * 是否原创：0-否1-是
      */
     @Column(name = "is_original")
-    private Byte isOriginal;
+    private Byte original;
 
     /**
      * 是否开启评论：0-否 1-是
      */
     @Column(name = "is_enable_comment")
-    private Byte isEnableComment;
+    private Byte enableComment;
 
     /**
      * 文章评论数
      */
     @Column(name = "article_comment_amount")
     private Integer articleCommentAmount;
+
+    /**
+     * 置顶：0-否 1-是
+     */
+    @Column(name = "is_top")
+    private Byte top;
 
     /**
      * 是否删除：0-否1-是
@@ -269,17 +275,17 @@ public class BlogArticle {
      *
      * @return is_original - 是否原创：0-否1-是
      */
-    public Byte getIsOriginal() {
-        return isOriginal;
+    public Byte getOriginal() {
+        return original;
     }
 
     /**
      * 设置是否原创：0-否1-是
      *
-     * @param isOriginal 是否原创：0-否1-是
+     * @param original 是否原创：0-否1-是
      */
-    public void setIsOriginal(Byte isOriginal) {
-        this.isOriginal = isOriginal;
+    public void setOriginal(Byte original) {
+        this.original = original;
     }
 
     /**
@@ -287,17 +293,17 @@ public class BlogArticle {
      *
      * @return is_enable_comment - 是否开启评论：0-否 1-是
      */
-    public Byte getIsEnableComment() {
-        return isEnableComment;
+    public Byte getEnableComment() {
+        return enableComment;
     }
 
     /**
      * 设置是否开启评论：0-否 1-是
      *
-     * @param isEnableComment 是否开启评论：0-否 1-是
+     * @param enableComment 是否开启评论：0-否 1-是
      */
-    public void setIsEnableComment(Byte isEnableComment) {
-        this.isEnableComment = isEnableComment;
+    public void setEnableComment(Byte enableComment) {
+        this.enableComment = enableComment;
     }
 
     /**
@@ -316,6 +322,24 @@ public class BlogArticle {
      */
     public void setArticleCommentAmount(Integer articleCommentAmount) {
         this.articleCommentAmount = articleCommentAmount;
+    }
+
+    /**
+     * 获取置顶：0-否 1-是
+     *
+     * @return is_top - 置顶：0-否 1-是
+     */
+    public Byte getTop() {
+        return top;
+    }
+
+    /**
+     * 设置置顶：0-否 1-是
+     *
+     * @param top 置顶：0-否 1-是
+     */
+    public void setTop(Byte top) {
+        this.top = top;
     }
 
     /**
