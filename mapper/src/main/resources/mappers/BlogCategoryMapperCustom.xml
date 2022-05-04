@@ -18,6 +18,12 @@
            category_column, category_sort, is_deleted, create_time, update_time
     FROM blog_category
     WHERE is_deleted = 0
+    <if test="null != categoryColumn and -1 != categoryColumn and 0 != categoryColumn">
+      and category_column = #{categoryColumn}
+    </if>
+    <if test="null != keywords and '' != keywords ">
+      and category_name like #{keywords}
+    </if>
     ORDER BY category_sort desc
     LIMIT #{offset}, #{pageSize} ;
   </select>

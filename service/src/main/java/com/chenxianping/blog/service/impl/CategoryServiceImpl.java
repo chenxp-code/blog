@@ -36,10 +36,11 @@ public class CategoryServiceImpl implements CategoryService {
     public ResultVO save(BlogCategory blogCategory) {
         Date date = new Date();
         ResultVO result;
-        //categoryName非空校验
-        if (blogCategory.getCategoryName() == null || blogCategory.getCategoryName().trim().length() == 0) {
+        if(null == blogCategory){
+            result = new ResultVO(ResStatus.NO, "数据为空，请重试！", null);
+        }else if (null == blogCategory.getCategoryName() || blogCategory.getCategoryName().trim().length() == 0) {//categoryName非空校验
             result = new ResultVO(ResStatus.NO, "分类名称不能为空！", null);
-        } else if (blogCategory.getCategoryId() == 0 || blogCategory.getCategoryId() == null) {// categoryId为0或null，则为新增
+        } else if (0 == blogCategory.getCategoryId() || null == blogCategory.getCategoryId()) {// categoryId为0或null，则为新增
             //删除前后空格
             blogCategory.setCategoryName(blogCategory.getCategoryName().trim());
             //categoryName唯一性校验
@@ -64,8 +65,8 @@ public class CategoryServiceImpl implements CategoryService {
             BlogCategory categoryDb = blogCategoryMapper.selectByPrimaryKey(blogCategory.getCategoryId());
             if (categoryDb == null) {
                 result = new ResultVO(ResStatus.NO, "非法分类Id！", null);
-            } else if (!(blogCategory.getCategoryName()).equals(categoryDb.getCategoryName()) && isExist(categoryDb.getCategoryName())) {
-                result = new ResultVO(ResStatus.NO, "分类【" + categoryDb.getCategoryName() + "】已存在！", null);
+            } else if (!(blogCategory.getCategoryName()).equals(categoryDb.getCategoryName()) && isExist(blogCategory.getCategoryName())) {
+                result = new ResultVO(ResStatus.NO, "分类【" + blogCategory.getCategoryName() + "】已存在！", null);
             } else {
                 if (blogCategoryMapper.updateByPrimaryKeySelective(blogCategory) > 0) {
                     result = new ResultVO(ResStatus.OK, "更新分类【" + blogCategory.getCategoryName() + "】成功！", blogCategory);
@@ -126,10 +127,12 @@ public class CategoryServiceImpl implements CategoryService {
      * 获取所有分类（分页）
      * @param page 页码
      * @param pageSize  每页的记录数
+     * @param categoryColumn 分类所属栏目
+     * @param keywords 关键词搜索
      * @return
      */
     @Override
-    public ResultVO selectAll(Integer page, Integer pageSize) {
+    public ResultVO selectAll(Integer page, Integer pageSize, Integer categoryColumn, String keywords) {
         if(page == null || page < 1){
             page = 1;
         }
@@ -139,8 +142,17 @@ public class CategoryServiceImpl implements CategoryService {
         if(pageSize > 50 ){
             pageSize = 50;
         }
+        if(null != keywords){
+            keywords = keywords.trim();
+            if(keywords.length() > 0){
+                keywords = "%" + keywords + "%";
+            }else {
+                keywords = "";
+            }
+        }
+
         Integer offset = (page - 1) * pageSize; //起始下标
-        List<BlogCategory> categories = blogCategoryMapperCustom.selectAllForPage(offset, pageSize);
+        List<BlogCategory> categories = blogCategoryMapperCustom.selectAllForPage(offset, pageSize, categoryColumn, keywords);
         return new ResultVO(200, "SUCCESS", categories);
     }
 
@@ -154,7 +166,7 @@ public class CategoryServiceImpl implements CategoryService {
         Example example = new Example(BlogCategory.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("categoryName", categoryName);
-        criteria.andEqualTo("delete",(byte)1);
+        criteria.andEqualTo("deleted",(byte)0);
         List<BlogCategory> categories = blogCategoryMapper.selectByExample(example);
         return !categories.isEmpty();
     }

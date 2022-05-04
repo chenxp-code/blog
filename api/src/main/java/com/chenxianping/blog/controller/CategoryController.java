@@ -43,9 +43,11 @@ public class CategoryController {
 
     @GetMapping("/categories")
     @ApiOperation("分页获取分类列表")
-    public ResultVO categoriesForPage(@RequestParam Integer page,
-                                      @RequestParam Integer pageSize){
+    public ResultVO categoriesForPage(@RequestParam("page") Integer page,
+                                      @RequestParam("pageSize") Integer pageSize,
+                                      @RequestParam(value = "categoryColumn" ,required = false) Integer categoryColumn,
+                                      @RequestParam(value = "keywords" ,required = false) String keywords){
 
-        return categoryService.selectAll(page, pageSize);
+        return categoryService.selectAll(page, pageSize, categoryColumn, keywords);
     }
 }

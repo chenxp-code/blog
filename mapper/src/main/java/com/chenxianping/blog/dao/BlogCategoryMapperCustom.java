@@ -9,5 +9,7 @@ import java.util.List;
 @Repository
 public interface BlogCategoryMapperCustom {
 
-    List<BlogCategory> selectAllForPage(@Param("offset") Integer offset,@Param("pageSize") Integer pageSize);
+    List<BlogCategory> selectAllForPage(@Param("offset") Integer offset,@Param("pageSize") Integer pageSize,
+                                        @Param("categoryColumn") Integer categoryColumn,
+                                        @Param("keywords") String keywords);
 }
