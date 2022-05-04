@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chenxianping.blog.dao.BlogCarouselMapper">
+  <resultMap id="BaseResultMap" type="com.chenxianping.blog.entity.BlogCarousel">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="image_url" jdbcType="VARCHAR" property="imageUrl" />
+    <result column="target_url" jdbcType="VARCHAR" property="targetUrl" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="is_show" jdbcType="TINYINT" property="show" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+</mapper>

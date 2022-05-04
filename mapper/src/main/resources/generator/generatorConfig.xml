@@ -32,7 +32,7 @@
         <javaClientGenerator targetPackage="com.chenxianping.blog.dao" targetProject="src/main/java" type="XMLMAPPER"/>
 
         <!-- 配置需要指定生成的数据库和表，% 代表所有表 -->
-<!--        <table catalog="chenxp_blog_db" tableName="blog_article">-->
+<!--        <table catalog="chenxp_blog_db" tableName="blog_carousel">-->
 <!--            &lt;!&ndash; mysql 配置 &ndash;&gt;-->
 <!--            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
 <!--        </table>-->
