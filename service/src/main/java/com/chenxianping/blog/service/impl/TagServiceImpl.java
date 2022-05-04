@@ -29,8 +29,7 @@ public class TagServiceImpl implements TagService {
     /**
      * 保存标签信息
      * tagId为空，则新增标签；tagId不为空，则更新标签
-     *
-     * @param tag
+     * @param tag 标签
      * @return
      */
     @Override
@@ -90,7 +89,7 @@ public class TagServiceImpl implements TagService {
         if (tag != null) {
             result = new ResultVO(ResStatus.OK, "SUCCESS", tag);
         } else {
-            result = new ResultVO(ResStatus.NO, "非法标签ID", null);
+            result = new ResultVO(ResStatus.NO, "非法标签Id", null);
         }
         return result;
     }
@@ -98,12 +97,21 @@ public class TagServiceImpl implements TagService {
     /**
      * 获取所有标签(分页)
      *
-     * @param page
-     * @param pageSize
+     * @param page 页码
+     * @param pageSize 每页的记录数
      * @return
      */
     @Override
     public ResultVO selectAll(Integer page, Integer pageSize) {
+        if(page == null || page < 1){
+            page = 1;
+        }
+        if(pageSize == null || pageSize < 10){
+            pageSize = 10;
+        }
+        if(pageSize > 50 ){
+            pageSize = 50;
+        }
         Integer offset = (page - 1) * pageSize; //起始下标
         List<BlogTag> tags = blogTagMapperCustom.selectAllForPage(offset, pageSize);
         return new ResultVO(200, "SUCCESS", tags);
@@ -124,7 +132,7 @@ public class TagServiceImpl implements TagService {
             result = new ResultVO(ResStatus.NO, "非法标签ID", null);
         } else if (tag.getTagAmount() <= 0) {
             blogTagMapper.deleteByPrimaryKey(tagId);
-            result = new ResultVO(ResStatus.OK, "已删除【" + tag.getTagName() + "】标签", null);
+            result = new ResultVO(ResStatus.OK, "删除标签【" + tag.getTagName() + "】成功", null);
         } else {
             result = new ResultVO(ResStatus.NO, "该标签下有文章，无法删除！", null);
         }

@@ -24,14 +24,14 @@ public class TagController {
     private TagService tagService;
 
     @PostMapping("/save")
-    @ApiOperation("新增标签")
+    @ApiOperation("保存标签")
     public ResultVO save(@RequestBody BlogTag tag){
         return tagService.save(tag);
     }
 
     @GetMapping("/info/{tagId}")
     @ApiOperation("获取标签信息")
-    public ResultVO tag(@PathVariable Integer tagId){
+    public ResultVO get(@PathVariable Integer tagId){
         return tagService.selectById(tagId);
     }
 
@@ -39,15 +39,7 @@ public class TagController {
     @ApiOperation("分页获取标签列表")
     public ResultVO tagsForPage(@RequestParam Integer page,
                                  @RequestParam Integer pageSize){
-        if(page == null || page < 1){
-            page = 1;
-        }
-        if(pageSize == null || pageSize < 10){
-            pageSize = 10;
-        }
-        if(pageSize > 50 ){
-            pageSize = 50;
-        }
+
         return tagService.selectAll(page, pageSize);
     }
 

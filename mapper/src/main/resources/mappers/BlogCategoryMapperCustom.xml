@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.chenxianping.blog.dao.BlogCategoryMapper">
+<mapper namespace="com.chenxianping.blog.dao.BlogCategoryMapperCustom">
   <resultMap id="BaseResultMap" type="com.chenxianping.blog.entity.BlogCategory">
-    <!--
-      WARNING - @mbg.generated
-    -->
     <id column="category_id" jdbcType="INTEGER" property="categoryId" />
     <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
     <result column="category_icon" jdbcType="VARCHAR" property="categoryIcon" />
@@ -15,4 +12,13 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
+
+  <select id="selectAllForPage" parameterType="int" resultMap="BaseResultMap">
+    SELECT category_id, category_name, category_icon, category_amount,
+           category_column, category_sort, is_deleted, create_time, update_time
+    FROM blog_category
+    WHERE is_deleted = 0
+    ORDER BY category_sort desc
+    LIMIT #{offset}, #{pageSize} ;
+  </select>
 </mapper>
