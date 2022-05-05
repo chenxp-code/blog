@@ -153,7 +153,30 @@ public class CategoryServiceImpl implements CategoryService {
 
         Integer offset = (page - 1) * pageSize; //起始下标
         List<BlogCategory> categories = blogCategoryMapperCustom.selectAllForPage(offset, pageSize, categoryColumn, keywords);
-        return new ResultVO(200, "SUCCESS", categories);
+        return new ResultVO(ResStatus.OK, "SUCCESS", categories);
+    }
+
+    /**
+     * 根据所属栏目获取分类列表
+     * @param column 所属栏目: 1-文章 2-资源库
+     * @return
+     */
+    @Override
+    public ResultVO selectByColumn(Integer column) {
+        ResultVO result;
+        if(column == 1 || column == 2) {
+            Example example = new Example(BlogCategory.class);
+            Example.Criteria criteria = example.createCriteria();
+            criteria.andEqualTo("categoryColumn",column);
+            criteria.andEqualTo("deleted",0);
+            example.orderBy("categorySort").desc();
+            List<BlogCategory> categories = blogCategoryMapper.selectByExample(example);
+            result = new ResultVO(ResStatus.OK, "SUCCESS", categories);
+        }else {
+            result = new ResultVO(ResStatus.NO, "非法栏目参数，请重试！", null);
+        }
+
+        return result;
     }
 
     /**

@@ -99,10 +99,11 @@ public class TagServiceImpl implements TagService {
      *
      * @param page 页码
      * @param pageSize 每页的记录数
+     * @param keywords 关键词
      * @return
      */
     @Override
-    public ResultVO selectAll(Integer page, Integer pageSize) {
+    public ResultVO selectAll(Integer page, Integer pageSize, String keywords) {
         if(page == null || page < 1){
             page = 1;
         }
@@ -112,8 +113,16 @@ public class TagServiceImpl implements TagService {
         if(pageSize > 50 ){
             pageSize = 50;
         }
+        if(null != keywords){
+            keywords = keywords.trim();
+            if(keywords.length() > 0){
+                keywords = "%" + keywords + "%";
+            }else {
+                keywords = "";
+            }
+        }
         Integer offset = (page - 1) * pageSize; //起始下标
-        List<BlogTag> tags = blogTagMapperCustom.selectAllForPage(offset, pageSize);
+        List<BlogTag> tags = blogTagMapperCustom.selectAllForPage(offset, pageSize, keywords);
         return new ResultVO(200, "SUCCESS", tags);
     }
 

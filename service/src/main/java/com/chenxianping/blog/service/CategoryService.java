@@ -16,4 +16,6 @@ public interface CategoryService {
     ResultVO deleteById(Integer categoryId);
 
     ResultVO selectAll(Integer page, Integer pageSize, Integer categoryColumn, String keywords);
+
+    ResultVO selectByColumn(Integer column);
 }

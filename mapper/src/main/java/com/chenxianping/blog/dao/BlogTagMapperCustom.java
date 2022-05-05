@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface BlogTagMapperCustom {
-    List<BlogTag> selectAllForPage(@Param("offset") Integer offset,@Param("pageSize") Integer pageSize);
+    List<BlogTag> selectAllForPage(@Param("offset")Integer offset,@Param("pageSize")Integer pageSize, @Param("keywords")String keywords);
 }

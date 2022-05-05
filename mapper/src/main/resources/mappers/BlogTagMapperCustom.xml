@@ -14,6 +14,9 @@
   <select id="selectAllForPage" parameterType="int" resultMap="BaseResultMap">
     SELECT tag_id, tag_name, tag_amount, tag_sort, is_deleted, create_time, update_time
     FROM blog_tag
+    <if test="keywords != null and keywords != ''">
+      where tag_name like #{keywords}
+    </if>
     ORDER BY tag_sort DESC
     LIMIT #{offset}, #{pageSize};
   </select>

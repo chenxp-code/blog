@@ -12,7 +12,7 @@ public interface TagService {
 
     ResultVO selectById(Integer tagId);
 
-    ResultVO selectAll(Integer page, Integer pageSize);
+    ResultVO selectAll(Integer page, Integer pageSize, String keywords);
 
     ResultVO deleteById(Integer tagId);
 }

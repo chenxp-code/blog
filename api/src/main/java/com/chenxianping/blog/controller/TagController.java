@@ -37,10 +37,11 @@ public class TagController {
 
     @GetMapping("/tags")
     @ApiOperation("分页获取标签列表")
-    public ResultVO tagsForPage(@RequestParam Integer page,
-                                 @RequestParam Integer pageSize){
+    public ResultVO tagsForPage(@RequestParam("page") Integer page,
+                                @RequestParam("pageSize") Integer pageSize,
+                                @RequestParam(value = "keywords", required = false) String keywords){
 
-        return tagService.selectAll(page, pageSize);
+        return tagService.selectAll(page, pageSize, keywords);
     }
 
     @DeleteMapping("/delete/{tagId}")
