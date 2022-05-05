@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chenxianping.blog.dao.BlogResourceMapperCustom">
+  <resultMap id="BaseResultMap" type="com.chenxianping.blog.entity.BlogResource">
+    <id column="resource_id" jdbcType="INTEGER" property="resourceId" />
+    <result column="resource_name" jdbcType="VARCHAR" property="resourceName" />
+    <result column="resource_description" jdbcType="VARCHAR" property="resourceDescription" />
+    <result column="resource_url" jdbcType="VARCHAR" property="resourceUrl" />
+    <result column="resource_icon" jdbcType="VARCHAR" property="resourceIcon" />
+    <result column="resource_category" jdbcType="INTEGER" property="resourceCategory" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+  <select id="selectAllForPage" resultMap="BaseResultMap">
+    SELECT resource_id, resource_name, resource_description, resource_url,
+    resource_icon, resource_category, create_time, update_time
+    FROM blog_resource
+    WHERE 1
+    <if test="0 != categoryId and null != categoryId and -1 != categoryId">
+      AND resource_category = #{categoryId}
+    </if>
+    <if test="null != keywords and '' != keywords ">
+      AND resource_name like #{keywords}
+    </if>
+    ORDER BY create_time desc
+    LIMIT #{offset}, #{pageSize} ;
+  </select>
+</mapper>
