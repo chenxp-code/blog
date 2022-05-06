@@ -4,15 +4,13 @@ import com.chenxianping.blog.entity.BlogLink;
 import com.chenxianping.blog.vo.ResultVO;
 
 public interface LinkService {
-    //新增友链
-    ResultVO saveLink(BlogLink blogLink);
-
-    //修改友链
-    ResultVO updateLink(BlogLink blogLink);
+    //保存友链
+    ResultVO save(BlogLink blogLink);
 
     //审核友链
-    ResultVO checkLink(Integer linkId);
+    ResultVO auditLink(Integer linkId, Integer status);
 
-    //下架友链
-    ResultVO downLink(Integer linkId);
+    ResultVO selectAll(Integer page, Integer pageSize, Integer linkSource, Integer status, String keywords);
+
+    ResultVO selectById(Integer linkId);
 }

@@ -1,5 +1,8 @@
 package com.chenxianping.blog.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 import javax.persistence.*;
 
@@ -43,7 +46,7 @@ public class BlogLink {
     private Integer linkSort;
 
     /**
-     * 友链状态：0-审核中1-通过2-下线
+     * 友链状态：0-待审核 1-已通过 2-未通过 3-已下线
      */
     @Column(name = "link_status")
     private Byte linkStatus;
@@ -58,6 +61,7 @@ public class BlogLink {
      * 创建时间
      */
     @Column(name = "create_time")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
 
     /**

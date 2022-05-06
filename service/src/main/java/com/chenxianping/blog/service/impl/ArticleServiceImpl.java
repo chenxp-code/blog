@@ -13,16 +13,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
+import javax.annotation.Resource;
 import java.util.*;
 
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
-    @Autowired
+    @Resource
     BlogArticleMapper blogArticleMapper;
+
+    @Resource
     BlogTagMapper blogTagMapper;
+
+    @Resource
     BlogCategoryMapper blogCategoryMapper;
 
+    /**
+     * 保存文章
+     * @param blogArticle
+     * @return
+     */
     @Override
     public ResultVO saveArticle(BlogArticle blogArticle) {
         //分类

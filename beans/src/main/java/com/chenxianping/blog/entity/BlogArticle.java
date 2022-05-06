@@ -31,7 +31,7 @@ public class BlogArticle {
     private String articleSubUrl;
 
     /**
-     * 文章状态：0-草稿1-已发布
+     * 文章状态：1-草稿2-已发布
      */
     @Column(name = "article_status")
     private Byte articleStatus;

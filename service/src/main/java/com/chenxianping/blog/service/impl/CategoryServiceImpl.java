@@ -37,7 +37,7 @@ public class CategoryServiceImpl implements CategoryService {
         Date date = new Date();
         ResultVO result;
         if(null == blogCategory){
-            result = new ResultVO(ResStatus.NO, "数据为空，请重试！", null);
+            result = new ResultVO(ResStatus.NO, "数据错误，请重试！", null);
         }else if (null == blogCategory.getCategoryName() || blogCategory.getCategoryName().trim().length() == 0) {//categoryName非空校验
             result = new ResultVO(ResStatus.NO, "分类名称不能为空！", null);
         } else if (0 == blogCategory.getCategoryId() || null == blogCategory.getCategoryId()) {// categoryId为0或null，则为新增
