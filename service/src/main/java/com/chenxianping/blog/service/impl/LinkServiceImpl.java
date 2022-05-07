@@ -20,6 +20,12 @@ public class LinkServiceImpl implements LinkService {
     @Resource
     private BlogLinkMapperCustom blogLinkMapperCustom;
 
+    /**
+     * 保存友链
+     * linkId为空，则为添加友链；不为空，则为更新友链
+     * @param blogLink
+     * @return
+     */
     @Override
     public ResultVO save(BlogLink blogLink) {
         ResultVO result;
