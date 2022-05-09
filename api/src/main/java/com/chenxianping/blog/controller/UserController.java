@@ -1,11 +1,14 @@
 package com.chenxianping.blog.controller;
 
+import com.chenxianping.blog.dto.AdminLoginDTO;
 import com.chenxianping.blog.service.UserService;
 import com.chenxianping.blog.vo.ResultVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -27,19 +30,20 @@ public class UserController {
     })
     @PostMapping("/saveAdmin")
     public ResultVO addAdmin(String userName,String userPassword,Byte userType){
-        ResultVO resultVO = userService.addAdmin(userName, userPassword,userType);
-        return resultVO;
+        return userService.addAdmin(userName, userPassword,userType);
     }
 
     @ApiOperation("管理员登录接口")
     @ApiImplicitParams({
-            @ApiImplicitParam(dataType = "string",name = "userName", value = "管理员账号",required = true),
-            @ApiImplicitParam(dataType = "string",name = "userPassword", value = "管理员密码",required = true)
+            @ApiImplicitParam(dataType = "string",name = "userName", value = "管理员账号",required = false),
+            @ApiImplicitParam(dataType = "string",name = "userPassword", value = "管理员密码",required = false)
     })
     @GetMapping("/loginAdmin")
-    public ResultVO loginAdmin(String userName,String userPassword){
-        ResultVO resultVO = userService.loginAdmin(userName, userPassword);
-        return resultVO;
+//    public ResultVO loginAdmin(String userName,String userPassword){
+//        return userService.loginAdmin(userName, userPassword);
+//    }
+    public ResultVO loginAdmin(@Validated AdminLoginDTO user, BindingResult result){
+        return userService.loginAdmin(user.getUserName(), user.getUserPassword());
     }
 
     @ApiOperation("修改管理员密码接口")
@@ -49,7 +53,6 @@ public class UserController {
     })
     @PutMapping("/updateAdmin/{id}")
     public ResultVO loginAdmin(@PathVariable("id")Integer id, String userPassword, String newPassword){
-        ResultVO resultVO = userService.updatePassword(id,userPassword,newPassword);
-        return resultVO;
+        return userService.updatePassword(id,userPassword,newPassword);
     }
 }
