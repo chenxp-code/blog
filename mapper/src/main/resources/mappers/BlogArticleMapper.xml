@@ -13,7 +13,7 @@
     <result column="article_page_view" jdbcType="INTEGER" property="articlePageView" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="category_id" jdbcType="INTEGER" property="categoryId" />
-    <result column="tag_ids" jdbcType="VARCHAR" property="tagIds" />
+    <result column="article_tags" jdbcType="VARCHAR" property="articleTags" />
     <result column="is_original" jdbcType="TINYINT" property="original" />
     <result column="is_enable_comment" jdbcType="TINYINT" property="enableComment" />
     <result column="article_comment_amount" jdbcType="INTEGER" property="articleCommentAmount" />

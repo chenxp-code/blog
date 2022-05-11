@@ -9,14 +9,20 @@ import com.chenxianping.blog.entity.BlogTag;
 import com.chenxianping.blog.service.ArticleService;
 import com.chenxianping.blog.vo.ResStatus;
 import com.chenxianping.blog.vo.ResultVO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 
+/**
+ * @author chenxp
+ */
 @Service
 public class ArticleServiceImpl implements ArticleService {
     @Resource
@@ -33,19 +39,19 @@ public class ArticleServiceImpl implements ArticleService {
      * @param blogArticle
      * @return
      */
+    @Transactional
     @Override
     public ResultVO saveArticle(BlogArticle blogArticle) {
         //分类
         Integer cid = blogArticle.getCategoryId();
-        if(cid==null){
-            return new ResultVO(ResStatus.NO,"请选择分类",null);
-        }else{
+        if(cid != null){
             BlogCategory blogCategory = blogCategoryMapper.selectByPrimaryKey(cid);
             blogCategory.setCategoryAmount(blogCategory.getCategoryAmount()+1);
             blogCategoryMapper.updateByPrimaryKeySelective(blogCategory);
         }
+
         //标签
-        String[] tags = blogArticle.getTagIds().split(",");
+        String[] tags = blogArticle.getArticleTags().split(",");
         Example example = new Example(BlogTag.class);
         Example.Criteria criteria = example.createCriteria();
         List<BlogTag> newTags = new ArrayList<>();  //需要新增的标签
@@ -56,25 +62,36 @@ public class ArticleServiceImpl implements ArticleService {
             List<BlogTag> blogTags = blogTagMapper.selectByExample(example);
             if (blogTags.isEmpty()){    //不存在，则新增
                 BlogTag blogTag = new BlogTag();
+                blogTag.setTagSort(0);
                 blogTag.setTagName(tag);
+                blogTag.setTagAmount(0);
+                blogTag.setUpdateTime(new Date());
                 blogTag.setCreateTime(new Date());
+                blogTag.setDeleted((byte) 0);
                 newTags.add(blogTag);
             }else {
                 oldTags.add(blogTags.get(0));
             }
         }
         //批量新增标签
-        blogTagMapper.insertList(newTags);
-        //批量建立标签关系
+        if(!newTags.isEmpty()){
+            blogTagMapper.insertList(newTags);
+            //批量建立标签关系
+        }
 
         //保存文章
         blogArticle.setCreateTime(new Date());
         blogArticle.setUpdateTime(new Date());
         blogArticle.setArticlePageView(0);
         blogArticle.setDeleted((byte)0);
+        blogArticle.setArticleStatus((byte) 1);
+        blogArticle.setUserId(1);
+        blogArticle.setArticlePageView(1000);
+        blogArticle.setEnableComment((byte) 0);
+        blogArticle.setTop((byte) 1);
         int effectLine = blogArticleMapper.insert(blogArticle);
         if(effectLine>0){
-            return new ResultVO(ResStatus.OK,"发布成功",null);
+            return new ResultVO(ResStatus.OK,"保存成功",null);
         }else {
             return new ResultVO(ResStatus.NO,"系统错误，稍后再试",null);
         }
@@ -92,10 +109,10 @@ public class ArticleServiceImpl implements ArticleService {
             //给修改后的分类amount加1
         }
         //判断是否修改标签
-        if(!oldArticle.getTagIds().equals(blogArticle.getTagIds())){  //修改标签
+        if(!oldArticle.getArticleTags().equals(blogArticle.getArticleTags())){  //修改标签
             //找出需要删除关系的标签
-            String[] oldTags = oldArticle.getTagIds().split(",");
-            String[] newTags = blogArticle.getTagIds().split(",");
+            String[] oldTags = oldArticle.getArticleTags().split(",");
+            String[] newTags = blogArticle.getArticleTags().split(",");
             //将标签id数组转换成List集合
             List<String> oldTagList = new ArrayList<>(oldTags.length);
             Collections.addAll(oldTagList,oldTags);
@@ -160,4 +177,5 @@ public class ArticleServiceImpl implements ArticleService {
         List<BlogArticle> blogArticles = blogArticleMapper.selectByExample(example);
         return new ResultVO(ResStatus.OK,"",blogArticles);
     }
+
 }

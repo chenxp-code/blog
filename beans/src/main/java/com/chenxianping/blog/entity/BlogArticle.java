@@ -2,8 +2,10 @@ package com.chenxianping.blog.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
-import javax.persistence.*;
 
 @Table(name = "blog_article")
 public class BlogArticle {
@@ -59,8 +61,8 @@ public class BlogArticle {
     /**
      * 文章标签ids
      */
-    @Column(name = "tag_ids")
-    private String tagIds;
+    @Column(name = "article_tags")
+    private String articleTags;
 
     /**
      * 是否原创：0-否1-是
@@ -257,21 +259,21 @@ public class BlogArticle {
     }
 
     /**
-     * 获取文章标签ids
+     * 获取文章标签
      *
-     * @return tag_ids - 文章标签ids
+     * @return article_tags - 文章标签
      */
-    public String getTagIds() {
-        return tagIds;
+    public String getArticleTags() {
+        return articleTags;
     }
 
     /**
-     * 设置文章标签ids
+     * 设置文章标签
      *
-     * @param tagIds 文章标签ids
+     * @param articleTags 文章标签
      */
-    public void setTagIds(String tagIds) {
-        this.tagIds = tagIds;
+    public void setArticleTags(String articleTags) {
+        this.articleTags = articleTags;
     }
 
     /**

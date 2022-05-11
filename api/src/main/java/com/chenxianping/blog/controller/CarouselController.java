@@ -22,7 +22,6 @@ public class CarouselController {
     @Resource
     private CarouselService carouselService;
 
-
     @PostMapping("/save")
     @ApiOperation("保存轮播图信息")
     public ResultVO save(@RequestBody BlogCarousel carousel){
