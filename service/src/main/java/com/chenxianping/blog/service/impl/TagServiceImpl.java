@@ -39,7 +39,8 @@ public class TagServiceImpl implements TagService {
         //tagName非空校验
         if (tag.getTagName() == null || tag.getTagName().trim().length() == 0) {
             result = new ResultVO(ResStatus.NO, "标签名不能为空！", null);
-        } else if (tag.getTagId() == 0 || tag.getTagId() == null) {// tagId为0或null，则为新增
+        } else if (tag.getTagId() == 0 || tag.getTagId() == null) {
+            // tagId为0或null，则为新增
             //删除前后空格
             tag.setTagName(tag.getTagName().trim());
             //tagName唯一性校验
@@ -119,7 +120,8 @@ public class TagServiceImpl implements TagService {
                 keywords = "";
             }
         }
-        Integer offset = (page - 1) * pageSize; //起始下标
+        //起始下标
+        Integer offset = (page - 1) * pageSize;
         List<BlogTag> tags = blogTagMapperCustom.selectAllForPage(offset, pageSize, keywords);
         return new ResultVO(200, "SUCCESS", tags);
     }

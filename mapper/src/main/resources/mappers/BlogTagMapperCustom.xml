@@ -11,7 +11,7 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
 
-  <select id="selectAllForPage" parameterType="int" resultMap="BaseResultMap">
+  <select id="selectAllForPage" resultMap="BaseResultMap">
     SELECT tag_id, tag_name, tag_amount, tag_sort, is_deleted, create_time, update_time
     FROM blog_tag
     <if test="keywords != null and keywords != ''">
@@ -20,4 +20,14 @@
     ORDER BY tag_sort DESC
     LIMIT #{offset}, #{pageSize};
   </select>
+
+  <update id="increaseTagAmountByName" parameterType="java.lang.String">
+    update blog_tag set tag_amount = tag_amount + 1
+    where tag_name = #{tagName};
+  </update>
+
+  <update id="decreaseTagAmountByName" parameterType="java.lang.String">
+    update blog_tag set tag_amount = tag_amount - 1
+    where tag_name = #{tagName};
+  </update>
 </mapper>

@@ -56,18 +56,18 @@ public class ArticleController {
         return articleService.saveArticle(article);
     }
 
-    @PutMapping("/updateArticleToDraft")
+    @PostMapping("/updateArticleToDraft")
     @ApiOperation("将文章(草稿)存为草稿")
     public ResultVO updateArticleToDraft(@RequestBody @Validated({EditArticleToDraft.class}) ArticleSaveDTO articleSaveDTO, BindingResult bindingResult){
         BlogArticle article = CopyUtil.copy(articleSaveDTO, BlogArticle.class);
-        return articleService.saveArticle(article);
+        return articleService.updateArticle(article);
     }
 
-    @PutMapping("/updateArticleToPublish")
+    @PostMapping("/updateArticleToPublish")
     @ApiOperation("将文章(草稿)发布")
     public ResultVO updateArticleToPublish(@RequestBody @Validated({EditArticleToPublish.class}) ArticleSaveDTO articleSaveDTO, BindingResult bindingResult){
         BlogArticle article = CopyUtil.copy(articleSaveDTO, BlogArticle.class);
-        return articleService.saveArticle(article);
+        return articleService.updateArticle(article);
     }
     @GetMapping("/{articleId}")
     @ApiOperation("获取文章")
